@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>雷诺曼牌局 · 测试版</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="crt"></div>
+<div class="vignette"></div>
+
+<main id="app">
+
+  <!-- ============ 标题 ============ -->
+  <section id="screen-title" class="screen active">
+    <div class="logo">
+      <div class="logo-sub">LENORMAND × MAJOR ARCANA</div>
+      <h1>雷诺曼牌局</h1>
+      <div class="logo-tag">测 试 版 · 回 合 制 自 动 战 斗</div>
+    </div>
+    <div class="title-rules">
+      <p>开打前先看敌人的<b>词条</b>，把雷诺曼牌放进槽位。</p>
+      <p>开打后牌会按 CD 自动打出，你只负责看。</p>
+      <p>命中累积<b>连段</b>，连段越高，效果越强。</p>
+      <p>打不过就换牌 —— 这游戏里，答案比数值重要。</p>
+    </div>
+    <button id="btn-start" class="btn big">开 始 一 局</button>
+  </section>
+
+  <!-- ============ 构筑 ============ -->
+  <section id="screen-build" class="screen">
+    <header class="topbar">
+      <div class="stat"><span class="k">关卡</span><span class="v" id="build-stage">1</span></div>
+      <div class="stat"><span class="k">等级</span><span class="v" id="build-level">1</span></div>
+      <div class="stat"><span class="k">槽位</span><span class="v" id="build-slotcount">0/3</span></div>
+      <div class="spacer"></div>
+      <div class="hint">看词条 → 换牌 → 开打</div>
+    </header>
+
+    <div class="build-wrap">
+      <aside class="enemy-side">
+        <div class="panel-title">本关对手</div>
+        <div id="build-enemy"></div>
+      </aside>
+
+      <section class="board-side">
+        <div class="panel-title">你的牌链（点牌上阵，点槽位卸下）</div>
+        <div id="build-slots" class="slots"></div>
+        <div class="panel-title coll-title">牌库 <span id="build-collcount" style="color:#8b7f9e"></span></div>
+        <div id="build-collection" class="collection"></div>
+      </section>
+    </div>
+
+    <footer class="build-footer">
+      <button id="btn-fight" class="btn big">开 打</button>
+    </footer>
+  </section>
+
+  <!-- ============ 战斗 ============ -->
+  <section id="screen-battle" class="screen">
+    <div class="enemy-board">
+      <div class="sprite-frame" id="b-sprite-frame">
+        <canvas id="enemy-sprite" width="16" height="16"></canvas>
+      </div>
+      <div class="enemy-title">
+        <span class="enemy-name" id="b-enemy-name">—</span>
+        <span class="enemy-boss" id="b-enemy-boss" hidden>首领</span>
+      </div>
+      <div class="hpbar enemy-bar">
+        <div class="hpfill enemy" id="b-enemy-hp"></div>
+        <span class="hptext" id="b-enemy-hptext"></span>
+      </div>
+      <div class="mods-row" id="b-enemy-mods"></div>
+    </div>
+
+    <div class="arena">
+      <div class="combo-panel">
+        <div class="combo-label">连 段</div>
+        <div class="combo-num" id="b-combo">0</div>
+        <div class="tiers" id="b-tiers"></div>
+      </div>
+      <div class="log-panel">
+        <div class="round-badge" id="b-round">第 0 回合</div>
+        <div class="log" id="b-log"></div>
+      </div>
+    </div>
+
+    <div class="player-board">
+      <div class="slots battle" id="b-slots"></div>
+      <div class="player-hprow">
+        <div class="hpbar">
+          <div class="hpfill player" id="b-player-hp"></div>
+          <span class="hptext" id="b-player-hptext"></span>
+        </div>
+        <div class="shield-badge" id="b-player-shield"></div>
+      </div>
+    </div>
+
+    <div class="battle-controls">
+      <button id="btn-pause" class="btn ghost">暂停</button>
+      <button id="btn-speed" class="btn ghost">1×</button>
+      <button id="btn-quit" class="btn ghost">放弃</button>
+    </div>
+  </section>
+
+  <!-- ============ 结算 ============ -->
+  <section id="screen-result" class="screen">
+    <div class="result-title" id="result-title">胜利</div>
+    <div class="result-sub" id="result-sub"></div>
+    <div class="result-stats" id="result-stats"></div>
+    <div class="reward-label" id="reward-label">获得新牌</div>
+    <div class="reward-row" id="reward-row"></div>
+    <button id="btn-continue" class="btn big">继 续</button>
+  </section>
+
+</main>
+
+<script src="js/data.js"></script>
+<script src="js/sprites.js"></script>
+<script src="js/engine.js"></script>
+<script src="js/ui.js"></script>
+</body>
+</html>
